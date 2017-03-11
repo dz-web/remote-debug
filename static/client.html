@@ -86,41 +86,39 @@
     setTimeout(function () {
       tips.setAttribute('class', 'debugger-tips leave');
     }, 3000);
-  })();
 
-  window.console = {
-    wc: window.console
-  };
+    window.console = {
+      wc: window.console
+    };
 
-  ['log', 'error', 'warn', 'debug', 'info'].forEach(function (item) {
-    //no local scope,has fn scope ,so item is item
-    console[item] = function () {
-      this.wc[item].apply(this.wc, Array.prototype.slice.call(arguments));
-      log(arguments, item);
-    }
-  });
-
-  window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
-    console.error('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber
-      + ' Column: ' + column + ' StackTrace: ' + errorObj);
-  };
-
-  function log(msgs, type) {
-    const msg = Object.keys(msgs).map(k => {
-      try {
-        if (typeof msgs[k] !== 'string') {
-          const c = JSON.stringify(msgs[k]);
-          return c !== undefined ? c : c.toString();
-        }
-      } catch (e) {
-
+    ['log', 'error', 'warn', 'debug', 'info'].forEach(function (item) {
+      //no local scope,has fn scope ,so item is item
+      console[item] = function () {
+        this.wc[item].apply(this.wc, Array.prototype.slice.call(arguments));
+        log(arguments, item);
       }
-      return msgs[k]
-    }).join(' ');
-    Server.sendLog(msg, type);
-  }
+    });
 
-  (function () {
+    window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
+      console.error('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber
+        + ' Column: ' + column + ' StackTrace: ' + errorObj);
+    };
+
+    function log(msgs, type) {
+      const msg = Object.keys(msgs).map(k => {
+        try {
+          if (typeof msgs[k] !== 'string') {
+            const c = JSON.stringify(msgs[k]);
+            return c !== undefined ? c : c.toString();
+          }
+        } catch (e) {
+
+        }
+        return msgs[k]
+      }).join(' ');
+      Server.sendLog(msg, type);
+    }
+
     const s = function () {
       this.socket = io('http://10.10.10.68:7000');
       this.socket.on('eval', function (data) {
