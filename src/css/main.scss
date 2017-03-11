@@ -1,0 +1,112 @@
+@import "normalize";
+
+body {
+  //background: whitesmoke;
+  font-size: 14px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+}
+//
+//button {
+//  border: 1px solid #ccc;
+//  background-color: #eee;
+//}
+//
+//.logger {
+//
+//  position: absolute;
+//  bottom: 0;
+//  left: 0;
+//  top:0;
+//  right: 0;
+//
+//  .toolbar {
+//    background-color: #ccc;
+//    height: 2em;
+//    line-height: 2em;
+//    button {
+//      height: 2em;
+//    }
+//  }
+//}
+//
+//.toolbar {
+//
+//  .btn {
+//    position: absolute;
+//    top: 0;
+//    right: 0;
+//  }
+//
+//  li {
+//    display: inline-block;
+//  }
+//}
+//
+//.tab-content {
+//  position: absolute;
+//  top: 2em;
+//  width: 100%;
+//  bottom: 0;
+//  border-top:1px solid#ccc;
+//}
+//
+//.tool-button {
+//
+//}
+//
+//.console {
+//  //padding-top: 2em;
+//  //position: relative;
+//  position: absolute;
+//  top: 0;
+//  width: 100%;
+//  bottom: 0;
+//
+//  .content {
+//    position: absolute;
+//    top: 2em;
+//    width: 100%;
+//    bottom: 0;
+//    overflow-y: scroll;
+//    -webkit-overflow-scrolling: touch;
+//  }
+//
+//  //dt {
+//  //  border-bottom: 1px solid #aaa;
+//  //  height: 2em;
+//  //  line-height: 2em;
+//  //  position: fixed;
+//  //  background-color: #fff;
+//  //  width: 100%;
+//  //}
+//
+//  dd {
+//    border-bottom: 1px solid #eee;
+//    padding: 0.2em;
+//
+//    &.warn {
+//      background-color: #fffbe6;
+//      color: #5c3b00;
+//      border-bottom: 1px solid #fff5c2;
+//    }
+//
+//    &.error {
+//      background-color: #fff0f0;
+//      color: #ff0000;
+//      border-bottom: 1px solid #ffd7d7;
+//    }
+//  }
+//
+//}
+//
+//.dialog {
+//  width: 80%;
+//}
+
+

@@ -1,0 +1,22 @@
+{
+  "presets": [
+    [
+      "es2015",
+      {"modules": false}
+    ],
+    "react",
+    "stage-1"
+  ],
+  "plugins": [
+    "transform-decorators-legacy",
+    [
+      "react-css-modules",
+      {
+        "filetypes": {
+          ".scss": "postcss-scss"
+        },
+        "webpackHotModuleReloading": true
+      }
+    ]
+  ]
+}
