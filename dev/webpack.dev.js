@@ -40,6 +40,7 @@ module.exports = {
     // new webpack.optimize.CommonsChunkPlugin({ name: 'vendor' }),
     ...helper.createHtmlPlugins(cfg.html),
     new HtmlWebpackAssetPlugin(),
+    new webpack.NoErrorsPlugin(),
   ],
   externals: {
     io: 'io'

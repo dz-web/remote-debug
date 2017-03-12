@@ -1,0 +1,57 @@
+.client-list {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  right: 0;
+
+  background-color: #fff;
+  box-shadow: -5px 0 10px rgba(0, 0, 0, 0.1);
+
+  li {
+    padding: 1em;
+    border-bottom: 1px solid #eee;
+
+    i {
+      font-style: normal;
+      font-weight: bold;
+    }
+    div {
+      padding: 0.2em 0;
+    }
+  }
+}
+
+.empty {
+  padding: 1rem;
+}
+
+.title {
+  font-size: 1.8rem;
+  line-height: 3rem;
+  height: 3rem;
+  padding-left: 0.5rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.close{
+  position: absolute;
+  top:0;
+  right: 0;
+  height: 3rem;
+  width: 3rem;
+  border:none;
+  background: transparent;
+}
+
+.content {
+  position: absolute;
+  top: 3rem;
+  bottom:0;
+  width: 100%;
+  overflow: auto;
+}
+
+.active {
+  background-color: #f1f1f1;
+}

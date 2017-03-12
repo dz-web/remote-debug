@@ -39,7 +39,7 @@ class InputHistory {
   prev() {
     if (this.count <= 0) return this.data[0];
     this.count -= 1;
-    console.log(this.count);
+    // console.log(this.count);
     return this.data[this.count];
   }
 
@@ -47,7 +47,7 @@ class InputHistory {
     const last = this.data.length - 1;
     if (this.count >= last) return this.data[last];
     this.count += 1;
-    console.log(this.count);
+    // console.log(this.count);
     return this.data[this.count];
   }
 
@@ -111,7 +111,7 @@ export default class Console extends Component {
         </div>
         <ul styleName="content" ref={(ref) => { this.content = ref; }}>
           { logger.logs.map((i, idx) => <li styleName={this.mapLogType(i['type'])}
-                                            key={idx}>{i['logs']}</li>) }
+                                               key={idx}>{i['logs']}</li>) }
         </ul>
         <textarea styleName="area" onKeyDown={this.onKeyDown} onChange={this.onChange}
                   ref={(ref) => { this.area = ref; }} />
