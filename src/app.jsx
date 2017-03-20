@@ -1,55 +1,58 @@
 import React, { Component } from 'react';
-import Console from './views/console'; // import global css style
 import { observer } from 'mobx-react';
-import logger from './logger';
-import clients from './clients';
+import Console from './views/console';
+import Store from './views/store';
+import logger from './model/logger';
+import clients from './model/clients';
 import ClientList from './views/client-list';
 import Nav from './views/nav';
+import ws from './server/WSever';
+import Tab from './component/tab';
+import Source from './views/source';
 
+const TabBar = Tab.TabBar;
+const TabPane = Tab.TabPane;
 @observer
 export default class App extends Component {
 
   constructor(props) {
     super(props);
 
-    io.on('connection', (client) => {
-      console.log(client, 'connetcion4444');
-      clients.add(client);
-
-      client.on('init', (data) => {
-        clients.updateClientById(client.id, data)
-      });
-
-      client.on('log', (data) => {
-        logger.add(data);
-      });
-
-      client.on('disconnect', () => {
-        console.log('disconnect');
-        clients.remove(client.id);
-      });
-
-    });
-
-    io.listen(7000);
+    this.state = { clientListClose: true };
   }
 
-  evalScript = (str) => {
-    logger.add({ type: 'log', logs: `> ${str}` });
-    clients.currentClient.client.emit('eval', str);
+  onClose = () => {
+    this.setState({ clientListClose: true });
+  };
+
+  onClientListClick = () => {
+    this.setState({ clientListClose: false });
   };
 
   render() {
-    // const { logs } = this.state;
-    console.log(Object.keys(clients.list));
+    const { clientListClose } = this.state;
+    const bar = <button onClick={this.onClientListClick} className="client-list-btn" />;
     return (
       // App root node
       <div >
-        <Nav />
-        <div className="tab-content">
-          <Console logger={logger} evalScript={this.evalScript} />
-          <ClientList list={clients.list} curr={clients.currentClient} />
-        </div>
+        <Tab activeTab={0} rightBar={bar}>
+          <TabPane tab="Console">
+            <Console logger={logger} />
+          </TabPane>
+          <TabPane tab="Store">
+            <Store />
+          </TabPane>
+          <TabPane tab="Sources">
+            <Source />
+          </TabPane>
+          <TabPane tab="Network">
+            <div />
+          </TabPane>
+        </Tab>
+        {
+          clientListClose ? null :
+            <ClientList list={clients.list} curr={clients.currentClient} onClose={this.onClose} />
+        }
       </div>
     );
   }

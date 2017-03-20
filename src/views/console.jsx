@@ -5,6 +5,7 @@
 import React, { Component, PropTypes } from 'react';
 import { observer } from 'mobx-react';
 import './console.scss';
+import ws from '../server/WSever';
 
 const KEY_UP = 38;
 const KEY_DOWN = 40;
@@ -16,7 +17,7 @@ class InputHistory {
     this.data = [];
     try {
       if ('his' in localStorage) {
-        this.data = JSON.parse(localStorage['his']);
+        this.data = JSON.parse(localStorage.his);
       }
     } catch (e) {
 
@@ -25,12 +26,12 @@ class InputHistory {
   }
 
   save() {
-    localStorage['his'] = JSON.stringify(this.data);
+    localStorage.his = JSON.stringify(this.data);
   }
 
   push(str) {
     const len = this.data.length;
-    if (len > 0 && str === this.data[len - 1])  return;
+    if (len > 0 && str === this.data[len - 1]) return;
     this.data.push(str);
     this.resetCount();
     this.save();
@@ -60,7 +61,6 @@ class InputHistory {
 export default class Console extends Component {
 
   static propTypes = {
-    evalScript: PropTypes.func,
     logger: PropTypes.any,
   };
 
@@ -74,7 +74,7 @@ export default class Console extends Component {
       // prevent defaut enter key, enable the enter combine with shift key
       e.preventDefault();
       if (this.area.value.trim() === '') return;
-      this.props.evalScript(this.area.value);
+      ws.evalCallback(this.area.value, 'output');
       this.inputHis.push(this.area.value);
       this.area.value = '';
     }
@@ -87,12 +87,19 @@ export default class Console extends Component {
     if (e.keyCode === KEY_DOWN) {
       this.area.value = this.inputHis.next();
     }
-
   };
 
-  mapLogType = (type) => ['log', 'warn', 'info', 'error'].indexOf(type) !== -1 ? type : 'log';
+  mapLogType = type => (['log', 'warn', 'info', 'error', 'input', 'output'].indexOf(type) !== -1 ? type : 'log');
+
+  componentDidMount() {
+    this.scrollToBottom();
+  }
 
   componentDidUpdate(prevProps, prevState) {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom() {
     this.content.scrollTop = this.content.scrollHeight;
   }
 
@@ -103,18 +110,22 @@ export default class Console extends Component {
   };
 
   render() {
-    let { logger = [] } = this.props;
+    const { logger = [] } = this.props;
     return (
       <div styleName="console">
         <div styleName="toobar">
-          <button onClick={() => logger.clear()}>clear</button>
+          <button onClick={() => logger.clear()} styleName="clear-btn" />
         </div>
         <ul styleName="content" ref={(ref) => { this.content = ref; }}>
-          { logger.logs.map((i, idx) => <li styleName={this.mapLogType(i['type'])}
-                                               key={idx}>{i['logs']}</li>) }
+          { logger.logs.map((i, idx) => <li
+            styleName={this.mapLogType(i.type)}
+            key={idx}
+          >{i.logs || 'undefined'}</li>) }
         </ul>
-        <textarea styleName="area" onKeyDown={this.onKeyDown} onChange={this.onChange}
-                  ref={(ref) => { this.area = ref; }} />
+        <textarea
+          styleName="area" onKeyDown={this.onKeyDown} onChange={this.onChange}
+          ref={(ref) => { this.area = ref; }}
+        />
       </div>
     );
   }

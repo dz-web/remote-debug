@@ -7,6 +7,7 @@ class Logger {
 
   @action
   add(obj) {
+    console.log('add log', obj);
     this.logs.push(obj);
   }
 

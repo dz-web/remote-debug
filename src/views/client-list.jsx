@@ -1,22 +1,27 @@
-/**
- * Created by dz on 2017/3/11.
- */
-
 import React, { Component, PropTypes } from 'react';
 import { observer } from 'mobx-react';
 import './client-list.scss';
-import clients from '../clients';
+import clients from '../model/clients';
 
+const reg = new RegExp(/%\d[\dA-F]/g);
+function autoDecode(str) {
+  if (reg.test(str)) {
+    const s = decodeURIComponent(str);
+    return autoDecode(s);
+  } else {
+    return str;
+  }
+}
 @observer
 export default class ClientList extends Component {
 
-  static propTypes = {};
-  state = { id: null, close: false };
+  static propTypes = {
+    list: PropTypes.any,
+  };
 
   constructor(props) {
     super(props);
-    console.log(props.curr, 'curr');
-
+    this.state = { id: null };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -27,8 +32,13 @@ export default class ClientList extends Component {
     }
   }
 
+  // componentDidMount() {
+  //   // this.setState({ id: clients.currentClient.id });
+  // }
+
   onClientClick = (id) => {
-    this.setState({ id: id });
+    if (id === this.state.id) return;
+    this.setState({ id });
     clients.switchClient(id);
   };
 
@@ -43,9 +53,11 @@ export default class ClientList extends Component {
           onClick={() => this.onClientClick(id)}
           styleName={this.state.id === id ? 'active' : ''}
         >
-          <div><i>ID:</i> {id}</div>
-          <div><i>Agent:</i> {i.agent}</div>
-          <div><i>URL:</i> {i.url}</div>
+          <div styleName="entry-title">{i.title || '无标题'} <em styleName="id">({id})</em></div>
+          <div>
+            <div><i>Agent:</i> {i.agent}</div>
+            <div><i>URL:</i> {autoDecode(i.url)}</div>
+          </div>
         </li>);
     });
     return (<ul ref={(ref) => { this.content = ref; }} styleName="content">
@@ -53,18 +65,12 @@ export default class ClientList extends Component {
     </ul>);
   }
 
-  close = () => {
-    this.setState({ close: true });
-  };
-
   render() {
-    if (this.state.close) return null;
-
-    let list = this.props.list;
+    const { list } = this.props;
     return (
       <div styleName="client-list">
         <div styleName="title">Clients
-          <button styleName="close" onClick={this.close}>X</button>
+          <button styleName="close" onClick={() => this.props.onClose()} />
         </div>
         {this.renderList(list)}
       </div>

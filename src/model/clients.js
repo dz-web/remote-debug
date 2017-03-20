@@ -7,10 +7,6 @@ class Clients {
   @observable currentClient = null;
   list = observable.map();
 
-  constructor() {
-
-  }
-
   @action
   add(obj) {
     this.list.set(obj.id, { client: obj, url: '' });
@@ -24,19 +20,19 @@ class Clients {
     if (c) {
       this.currentClient = c;
       return this.currentClient;
-    } else {
-      console.error(`no client found ${id}`);
     }
+    console.error(`no client found ${id}`);
+    return null;
   }
 
   @action
   remove(id) {
-    this.list.delete(id)
+    this.list.delete(id);
   }
 
   @action
   updateClientById(id, data) {
-    let c = this.list.get(id);
+    const c = this.list.get(id);
     if (c) {
       const f = { ...c, ...data };
       this.list.set(id, f);
@@ -44,11 +40,6 @@ class Clients {
       console.error(`no client found ${id}`);
     }
   }
-
-  // @computed
-  // get currentClient() {
-  //   return this._currentClient;
-  // }
 
 }
 const clients = new Clients();

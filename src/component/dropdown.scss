@@ -1,0 +1,22 @@
+.dropdown {
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  line-height: 2em;
+  font-size:0.9em;
+  border-radius: 5px;
+  padding: 3px 0;
+  cursor: default;
+}
+
+.dropdown-item {
+  padding: 0 5px;
+
+  &:hover{
+    background-color: #fafafa;
+  }
+
+  &:last-child {
+    border: 0;
+  }
+}

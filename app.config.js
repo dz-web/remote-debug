@@ -9,7 +9,7 @@ const config = {
 
   ],
   html: [
-    { name: 'index', title: '意见反馈', entry: './src/index' },
+    { name: 'index', title: 'Remote Dev Tools', entry: './src/index' },
   ],
 };
 

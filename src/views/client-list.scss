@@ -4,12 +4,14 @@
   bottom: 0;
   width: 50%;
   right: 0;
-
   background-color: #fff;
-  box-shadow: -5px 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: -3px 0 20px rgba(0, 0, 0, 0.3);
 
   li {
+    white-space: pre-wrap;
+    word-break: break-all;
     padding: 1em;
+    line-height: 1.5em;
     border-bottom: 1px solid #eee;
 
     i {
@@ -22,6 +24,10 @@
   }
 }
 
+.entry-title {
+  font-size: 1.2rem;
+}
+
 .empty {
   padding: 1rem;
 }
@@ -32,26 +38,39 @@
   height: 3rem;
   padding-left: 0.5rem;
   border-bottom: 1px solid #ddd;
+  background: #fafafa url("../imgs/organization-chart.svg") no-repeat 10px center;
+  background-size: 22px;
+  text-indent: 30px;
 }
 
-.close{
+.close {
   position: absolute;
-  top:0;
+  top: 0;
   right: 0;
   height: 3rem;
   width: 3rem;
-  border:none;
-  background: transparent;
+  border: none;
+  background: transparent url("../imgs/cancel.svg") no-repeat center;
+  background-size: 18px;
 }
 
 .content {
   position: absolute;
   top: 3rem;
-  bottom:0;
+  bottom: 0;
   width: 100%;
   overflow: auto;
 }
 
 .active {
   background-color: #f1f1f1;
+}
+
+.id {
+  color: #888;
+  font-size: 0.8rem;
+}
+
+.title {
+  font-size: 1.2rem;
 }

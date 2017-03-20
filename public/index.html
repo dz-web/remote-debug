@@ -12,8 +12,7 @@
 <body>
 <div id="root"></div>
 <script>
-  var server = require('http').createServer();
-  var io = require('socket.io')(server);
+  const io = require('socket.io')();
 </script>
 <script type="text/javascript" src="./static/polyfill.min.js"></script>
 {{scripts}}

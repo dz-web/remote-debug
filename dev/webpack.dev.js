@@ -61,7 +61,7 @@ module.exports = {
         exclude: /node_modules/, // 跳过 node_modules 目录
         include: path.resolve(__dirname, '../src'),
         query: {
-          cacheDirectory: true,
+          // cacheDirectory: true,
         },
       },
       { test: /\.(jpg|gif|png|svg|ico)$/, loader: 'file-loader?name=images/[name].[ext]' },

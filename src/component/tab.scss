@@ -1,4 +1,4 @@
-.tabs {
+.tabbar{
   display: inline-flex;
   justify-content: space-between;
   position: absolute;
@@ -22,13 +22,18 @@
       border-color: red;
     }
   }
+
 }
 
-.right-bar {
-  //align-content: flex-end;
-}
-.client-list{
-  background: url("../imgs/organization-chart.svg") center no-repeat;
-  background-size: 16px;
-  width: 3rem;
+.tab-content{
+  position: absolute;
+  top: 30px;
+  bottom: 0;
+  width: 100%;
+
+
+  .active{
+    //background-color: blue;
+    height: 100%;
+  }
 }
